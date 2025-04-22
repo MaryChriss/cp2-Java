@@ -1,25 +1,34 @@
-package main.java.cp2.example.mercadoMedieval.specification;
+package cp2.example.mercadoMedieval.specification;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.springframework.data.jpa.domain.Specification;
+
+import cp2.example.mercadoMedieval.model.ItemFilter;
+import cp2.example.mercadoMedieval.model.ItemMagico;
+import jakarta.persistence.criteria.Predicate;
 
 public class ItemSpecification {
 
-    public static Specification<ItemMagico> comFiltros(String tipo, String raridade, BigDecimal precoMin, BigDecimal precoMax) {
+    public static Specification<ItemMagico> comFiltros(ItemFilter filtro) {
         return (root, query, cb) -> {
             List<Predicate> predicates = new ArrayList<>();
 
-            if (tipo != null) {
-                predicates.add(cb.equal(cb.lower(root.get("tipo")), tipo.toLowerCase()));
+            if (filtro.getTipo() != null) {
+                predicates.add(cb.equal(cb.lower(root.get("tipo")), filtro.getTipo().toLowerCase()));
             }
 
-            if (raridade != null) {
-                predicates.add(cb.equal(cb.lower(root.get("raridade")), raridade.toLowerCase()));
+            if (filtro.getRaridade() != null) {
+                predicates.add(cb.equal(cb.lower(root.get("raridade")), filtro.getRaridade().toLowerCase()));
             }
 
-            if (precoMin != null) {
-                predicates.add(cb.greaterThanOrEqualTo(root.get("preco"), precoMin));
+            if (filtro.getPrecoMin() != null) {
+                predicates.add(cb.greaterThanOrEqualTo(root.get("preco"), filtro.getPrecoMin()));
             }
 
-            if (precoMax != null) {
-                predicates.add(cb.lessThanOrEqualTo(root.get("preco"), precoMax));
+            if (filtro.getPrecoMax() != null) {
+                predicates.add(cb.lessThanOrEqualTo(root.get("preco"), filtro.getPrecoMax()));
             }
 
             return cb.and(predicates.toArray(new Predicate[0]));
