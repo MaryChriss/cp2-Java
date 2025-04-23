@@ -1,4 +1,4 @@
-package main.java.cp2.example.mercadoMedieval.config;
+package cp2.example.mercadoMedieval.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;

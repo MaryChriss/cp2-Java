@@ -36,15 +36,10 @@ public class ItemController {
     }
 
     @GetMapping
-    public Page<ItemMagico> filtrar(ItemFilter filtro,
-            @PageableDefault(size = 10, sort = "preco") Pageable pageable) {
-        return repository.findAll(ItemSpecification.comFiltros(filtro), pageable);
-    }
-
-    @GetMapping
-    public List<ItemMagico> listar() {
-        return repository.findAll();
-    }
+        public Page<ItemMagico> filtrar(ItemFilter filtro,
+                @PageableDefault(size = 10, sort = "preco") Pageable pageable) {
+            return repository.findAll(ItemSpecification.comFiltros(filtro), pageable);
+        }
 
     @GetMapping("/{id}")
     public ResponseEntity<ItemMagico> buscar(@PathVariable Long id) {

@@ -35,15 +35,16 @@ public class PersonagemController {
     }
 
     @GetMapping
-    public List<Personagem> filtrar(PersonagemFilter filtro) {
-        return repository.findAll(PersonagemSpecification.comFiltros(filtro));
-    }
-
-    @GetMapping
-    public List<Personagem> listar() {
+    public List<Personagem> listarOuFiltrar(PersonagemFilter filtro) {
+        boolean temFiltro = (filtro.getNome() != null && !filtro.getNome().isBlank())
+                || filtro.getClasse() != null;
+    
+        if (temFiltro) {
+            return repository.findAll(PersonagemSpecification.comFiltros(filtro));
+        }
         return repository.findAll();
     }
-
+    
     @GetMapping("/{id}")
     public ResponseEntity<Personagem> buscar(@PathVariable Long id) {
         return repository.findById(id)
