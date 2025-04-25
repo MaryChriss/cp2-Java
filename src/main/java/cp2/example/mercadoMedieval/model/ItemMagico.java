@@ -39,7 +39,4 @@ public class ItemMagico {
     @DecimalMin("0.0")
     private BigDecimal preco;
 
-    @ManyToOne
-    @JoinColumn(name = "dono_id")
-    private Personagem dono;
 }
